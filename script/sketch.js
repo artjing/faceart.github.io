@@ -65,7 +65,7 @@ function draw() {
     } 
   }
 
-  fill(255,0,0,2);
+    fill(255,255,255,2);
 
   //console.log(emotionColor)
   if(isShowGraphic == 1)
