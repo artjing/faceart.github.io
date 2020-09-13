@@ -88,8 +88,7 @@ function draw() {
   {
     console.log('not equal')
   }
-  const note =random(["D4", "D4"]); 
-  synth.triggerAttackRelease(note , '8n');
+
   textSize(46);
   text(emotionText, width -emotionTextX, height*0.5);
   emotionTextX = emotionTextX + 0.05;
