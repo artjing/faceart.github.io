@@ -31,10 +31,6 @@ function setup() {
     }
   });
 
-  var feedbackDelay = new Tone.FeedbackDelay('8n',  0.6);
-  synth.connect(feedbackDelay);
-  synth.connect(Tone.Master);
-  feedbackDelay.connect(Tone.Master);
 
   player = new        
   Tone.Player("sound/sadnes_01.mp3").toMaster();
@@ -116,13 +112,6 @@ function draw() {
 
 }
 
-
- function mousePressed () {
-
-  const note = random(["A3", "C4", "D4", "E3", "G4"]);
-  synth.triggerAttackRelease(note , '8n');
-  
-}
 
 function touchStarted() {
   if (getAudioContext().state !== 'running') {
