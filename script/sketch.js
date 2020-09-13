@@ -36,6 +36,11 @@ function setup() {
   synth.connect(Tone.Master);
   feedbackDelay.connect(Tone.Master);
 
+  player = new        
+  Tone.Player("sound/sadnes_01.mp3").toMaster();
+  player.volume.value = 2;
+  player.autostart = true;
+
 }
 
 function draw() {
