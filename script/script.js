@@ -1,29 +1,31 @@
 const video = document.getElementById('video')
 
+// function startVideo() {
+//   navigator.mediaDevices.getUserMedia(
+//     { video: {} },
+//     stream => video.srcObject = stream,
+//     err => console.error(err)
+//   )
+// }
+
 function startVideo() {
-  // navigator.getUserMedia(
-  //   { video: {} },
-  //   stream => video.srcObject = stream,
-  //   err => console.error(err)
-  // )
 
-  var constraints = {audio: false, video: true};
-  function successCallback(stream) {
+var constraints = {audio: false, video: true};
+
+function successCallback(stream) {
   video.srcObject = stream;
-  video.play();
-  }
+}
 
-  function errorCallback(error) {
+function errorCallback(error) {
   console.log("navigator.getUserMedia error: ", error);
+}
 
-  }
-
-  navigator.mediaDevices.getUserMedia(constraints)
+navigator.mediaDevices.getUserMedia(constraints)
   .then(successCallback)
   .catch(errorCallback);
-  }
+}
 
-  Promise.all([
+Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('models'),
   faceapi.nets.faceLandmark68Net.loadFromUri('models'),
   faceapi.nets.faceRecognitionNet.loadFromUri('models'),
@@ -40,7 +42,7 @@ video.addEventListener('play', () => {
   setInterval(async () => {
     const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceExpressions()
 
-  	console.log(detections)
+    console.log(detections)
     var l = [];
     var threshold = 0.1;
     if(detections != null){
@@ -71,9 +73,9 @@ video.addEventListener('play', () => {
       all.push({"emotion":"sad","val":detections[0].expressions.sad});
       setoutAllEmotionData(all);
     }
-  	
-  	// get positions of face
-  	if(detections[0].landmarks._positions.length >0) drawFace(detections[0].landmarks._positions);
+    
+    // get positions of face
+    if(detections[0].landmarks._positions.length >0) drawFace(detections[0].landmarks._positions);
 
 
     const resizedDetections = faceapi.resizeResults(detections, displaySize)
