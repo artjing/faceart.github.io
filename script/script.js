@@ -1,13 +1,33 @@
 const video = document.getElementById('video')
 
-function startVideo() {
-  navigator.getUserMedia(
-    { video: {} },
-    stream => video.srcObject = stream,
-    err => console.error(err)
-  )
-}
+// function startVideo() {
+//   navigator.getUserMedia(
+//     { video: {} },
+//     stream => video.srcObject = stream,
+//     err => console.error(err)
+//   )
+// }
 
+function startVideo() {
+
+    video = document.getElementById('video');
+
+     navigator.getUserMedia = navigator.getUserMedia ||
+                              navigator.webkitGetUserMedia ||
+                              navigator.mozGetUserMedia;
+
+     navigator.getUserMedia(
+     {
+         audio: true,
+         video: { facingMode: "user" }
+     }, function (stream) {
+         video.srcObject = stream;
+         //video.src = window.URL.createObjectURL(stream);
+     },
+     function (err) {           
+         alert(err.name);
+     });
+}
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('models'),
   faceapi.nets.faceLandmark68Net.loadFromUri('models'),
