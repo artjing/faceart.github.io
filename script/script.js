@@ -1,14 +1,29 @@
 const video = document.getElementById('video')
 
 function startVideo() {
-  navigator.getUserMedia(
-    { video: {} },
-    stream => video.srcObject = stream,
-    err => console.error(err)
-  )
-}
+  // navigator.getUserMedia(
+  //   { video: {} },
+  //   stream => video.srcObject = stream,
+  //   err => console.error(err)
+  // )
 
-Promise.all([
+  var constraints = {audio: false, video: true};
+  function successCallback(stream) {
+  video.srcObject = stream;
+  video.play();
+  }
+
+  function errorCallback(error) {
+  console.log("navigator.getUserMedia error: ", error);
+
+  }
+
+  navigator.mediaDevices.getUserMedia(constraints)
+  .then(successCallback)
+  .catch(errorCallback);
+  }
+
+  Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('models'),
   faceapi.nets.faceLandmark68Net.loadFromUri('models'),
   faceapi.nets.faceRecognitionNet.loadFromUri('models'),
